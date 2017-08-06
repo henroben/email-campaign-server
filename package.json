@@ -1,0 +1,25 @@
+{
+  "name": "feedback-app-server",
+  "version": "1.0.0",
+  "description": "Server for React feedback app, using Node & MongoDB",
+  "main": "index.js",
+  "engines": {
+    "node": "8.1.1",
+    "npm": "5.0.3"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "Node",
+    "MongoDB",
+    "Mongo",
+    "Feedback",
+    "Email"
+  ],
+  "author": "Benjamin R Mercer",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
