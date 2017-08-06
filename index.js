@@ -1,39 +1,13 @@
 const express = require('express');
 const http = require('http');
-const passport = require('passport'); // base passport
-const googleStrategy = require('passport-google-oauth20').Strategy; // strategy for google
-const keys = require('./config/keys');
 
 const app = express();
 
 // Setup Passport
-passport.use(
-	new googleStrategy(
-		{
-			clientID: keys.googleClientID,
-			clientSecret: keys.googleClientSecret,
-			callbackURL: '/auth/google/callback'
-		},
-        (accessToken, refreshToken, profile, done) => {
-			'use strict';
-			console.log('access token: ', accessToken);
-			console.log('refresh token: ', refreshToken);
-			console.log('profile: ', profile.displayName);
-			console.log('done: ', done);
-		}
-	)
-);
+require('./services/passport');
 
 // Routes Setup
-
-app.get(
-	'/auth/google/',
-	passport.authenticate('google', {
-		scope: ['profile', 'email']
-	})
-);
-
-app.get('/auth/google/callback', passport.authenticate('google'));
+require('./routes/authRoutes')(app); // module exports function - can just pass in expected arg with ()
 
 // Server Setup
 
