@@ -1,7 +1,17 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const http = require('http');
 
+const keys = require('./config/keys');
+
+mongoose.connect(
+	keys.mongoURI
+);
+
 const app = express();
+
+// Setup Models
+require('./models/User');
 
 // Setup Passport
 require('./services/passport');
