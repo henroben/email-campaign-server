@@ -21,6 +21,7 @@
   "author": "Benjamin R Mercer",
   "license": "ISC",
   "dependencies": {
+    "cookie-session": "^1.3.2",
     "express": "^4.15.3",
     "mongoose": "^4.11.7",
     "nodemon": "^1.11.0",
