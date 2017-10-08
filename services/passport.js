@@ -14,10 +14,21 @@ passport.use(
 		},
 		(accessToken, refreshToken, profile, done) => {
 			'use strict';
-			// Create new user with returned google id and save to mongoDB
-			new User({
+			// Check to see if user already present in mongoDB
+			User.findOne({
 				googleId: profile.id
-			}).save();
+			}).then((existingUser) => {
+				if(existingUser) {
+					// User present in mongoDB
+					console.log("User already present");
+				} else {
+					// User not present in mongoDB
+					// Create new user with returned google id and save to mongoDB
+					new User({
+						googleId: profile.id
+					}).save();
+				}
+			});
 		}
 	)
 );
