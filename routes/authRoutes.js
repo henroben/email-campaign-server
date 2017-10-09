@@ -30,6 +30,7 @@ module.exports = app => {
 
 	// Display Current logged in user
 	app.get('/api/current_user', (req, res) => {
-		res.send(req.user);
+		// res.send(req.session); // Contains the data extracted from the cookie
+		res.send(req.user); // Return the user object
 	});
 };
