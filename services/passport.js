@@ -26,26 +26,20 @@ passport.use(
 			callbackURL: '/auth/google/callback',
 			proxy: true
 		},
-		(accessToken, refreshToken, profile, done) => {
+		async (accessToken, refreshToken, profile, done) => {
 			'use strict';
 			// Check to see if user already present in mongoDB
-			User.findOne({
-				googleId: profile.id
-			}).then(existingUser => {
-				if (existingUser) {
-					// User present in mongoDB
-					console.log('Google User already present');
-					done(null, existingUser);
-				} else {
-					// User not present in mongoDB
-					// Create new user with returned google id and save to mongoDB
-					new User({
-						googleId: profile.id
-					})
-						.save()
-						.then(user => done(null, user));
-				}
-			});
+			const existingUser = await User.findOne({ googleId: profile.id });
+
+			if (existingUser) {
+				// User present in mongoDB
+				console.log('Google User already present');
+				return done(null, existingUser);
+			}
+			// User not present in mongoDB
+			// Create new user with returned google id and save to mongoDB
+			const user = await new User({ googleId: profile.id }).save();
+			done(null, user);
 		}
 	)
 );
@@ -58,26 +52,20 @@ passport.use(
 			callbackURL: '/auth/facebook/callback',
 			proxy: true
 		},
-		(accessToken, refreshToken, profile, done) => {
+		async (accessToken, refreshToken, profile, done) => {
 			'use strict';
 			// Check to see if user already present in mongoDB
-			User.findOne({
-				facebookId: profile.id
-			}).then(existingUser => {
-				if (existingUser) {
-					// User present in mongoDB
-					console.log('Facebook User already present');
-					done(null, existingUser);
-				} else {
-					// User not present in mongoDB
-					// Create new user with returned facebook id and save to mongoDB
-					new User({
-						facebookId: profile.id
-					})
-						.save()
-						.then(user => done(null, user));
-				}
-			});
+			const existingUser = await User.findOne({ facebookId: profile.id });
+
+			if (existingUser) {
+				// User present in mongoDB
+				console.log('Facebook User already present');
+				return done(null, existingUser);
+			}
+			// User not present in mongoDB
+			// Create new user with returned facebook id and save to mongoDB
+			const user = await new User({ facebookId: profile.id }).save();
+			done(null, user);
 		}
 	)
 );
