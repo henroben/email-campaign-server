@@ -20,13 +20,22 @@ module.exports = app => {
 		})
 	);
 
-	app.get('/auth/facebook/callback', passport.authenticate('facebook'));
+	app.get(
+		'/auth/facebook/callback',
+		passport.authenticate('facebook'),
+		(req, res) => {
+			res.redirect('/surveys');
+		}
+	);
 
 	// Log out of app
-	app.get('/api/logout', (req, res) => {
-		req.logout(); // passport logout function
-		res.send(req.user);
-	});
+	app.get(
+		'/api/logout',
+		(req, res) => {
+			req.logout(); // passport logout function
+			res.redirect('/');
+		}
+	);
 
 	// Display Current logged in user
 	app.get('/api/current_user', (req, res) => {
