@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Payments from './Payments';
 
 class Header extends Component {
     renderContent() {
@@ -17,8 +18,8 @@ class Header extends Component {
             default:
                 return(
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        <li><Payments/></li>
                         <li><a href="/api/logout">Sign out</a></li>
-
                     </ul>
                 );
         }
