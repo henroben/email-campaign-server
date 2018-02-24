@@ -23,13 +23,15 @@
   "author": "Benjamin R Mercer",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "cookie-session": "^1.3.2",
     "express": "^4.15.3",
     "mongoose": "^4.11.7",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
-    "passport-google-oauth20": "^1.0.0"
+    "passport-google-oauth20": "^1.0.0",
+    "stripe": "^5.5.0"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"

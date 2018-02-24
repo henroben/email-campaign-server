@@ -1,7 +1,7 @@
 const passport = require('passport'); // base passport
 
 module.exports = app => {
-	'use strict';
+
 	// Google Login
 	app.get(
 		'/auth/google/',

@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const http = require('http');
 
 const keys = require('./config/keys');
@@ -10,6 +11,8 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
+// Tell Express to parse the body of post requests
+app.use(bodyParser.json());
 // Tell Express to use cookies
 app.use(
 	cookieSession({
@@ -28,8 +31,8 @@ require('./models/User');
 require('./services/passport');
 
 // Routes Setup
-require('./routes/authRoutes')(app); // module exports function - can just pass in expected arg with ()
 require('./routes/billingRoutes')(app); // module exports function - can just pass in expected arg with ()
+require('./routes/authRoutes')(app); // module exports function - can just pass in expected arg with ()
 
 // Server Setup
 const port = process.env.PORT || 5000;

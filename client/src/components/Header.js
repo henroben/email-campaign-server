@@ -9,19 +9,16 @@ class Header extends Component {
             case null:
                 return null;
             case false:
-                return (
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><a href="/auth/facebook">Sign in with Facebook</a></li>
-                        <li><a href="/auth/google">Sign in with Google</a></li>
-                    </ul>
-                );
+                return [
+                    <li key="0"><a href="/auth/facebook">Sign in with Facebook</a></li>,
+                    <li key="1"><a href="/auth/google">Sign in with Google</a></li>
+                ];
             default:
-                return(
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><Payments/></li>
-                        <li><a href="/api/logout">Sign out</a></li>
-                    </ul>
-                );
+                return [
+                    <li key="0"><Payments/></li>,
+                    <li key="1" style={{ margin: '0 10px' }}>Credits: {this.props.auth.credits}</li>,
+                    <li key="2"><a href="/api/logout">Sign out</a></li>
+                ];
         }
     }
     render() {
@@ -35,7 +32,9 @@ class Header extends Component {
                     >
                         Email Campaign Server
                     </Link>
-                    {this.renderContent()}
+                    <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        {this.renderContent()}
+                    </ul>
                 </div>
             </nav>
         );

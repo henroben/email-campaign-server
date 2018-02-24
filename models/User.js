@@ -8,7 +8,11 @@ const { Schema } = mongoose; // ES6 destructuring
 // Create new Schema
 const userSchema = new Schema({
     googleId: String,
-    facebookId: String
+    facebookId: String,
+    credits: {
+        type: Number,
+        default: 0
+    }
 });
 
 // Tell Mongoose to create new collection called users, using the user schema
