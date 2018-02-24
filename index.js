@@ -34,6 +34,17 @@ require('./services/passport');
 require('./routes/billingRoutes')(app); // module exports function - can just pass in expected arg with ()
 require('./routes/authRoutes')(app); // module exports function - can just pass in expected arg with ()
 
+// Production Routes Setup
+if(process.env.NODE_ENV === 'production') {
+	// Serve static assets
+	app.use(express.static('client/build'));
+	// Return index.html for undefined routes
+	const path = require('path');
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	})
+}
+
 // Server Setup
 const port = process.env.PORT || 5000;
 const server = http.createServer(app);
