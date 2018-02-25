@@ -14,7 +14,13 @@ const surveySchema = new Schema({
     no: {
         type: Number,
         default: 0
-    }
+    },
+    _user: {
+        type: Schema.Types.ObjectId, // Object id type
+        ref: 'User' // Reference is User collection
+    }, // use _ to denote it's a relationship field
+    dateSent: Date,
+    lastResponded: Date
 });
 
 mongoose.model('surveys', surveySchema);

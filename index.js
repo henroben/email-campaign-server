@@ -34,6 +34,7 @@ require('./services/passport');
 // Routes Setup
 require('./routes/billingRoutes')(app); // module exports function - can just pass in expected arg with ()
 require('./routes/authRoutes')(app); // module exports function - can just pass in expected arg with ()
+require('./routes/surveyRoutes')(app); // module exports function - can just pass in expected arg with ()
 
 // Production Routes Setup
 if(process.env.NODE_ENV === 'production') {
