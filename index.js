@@ -26,6 +26,7 @@ app.use(passport.session());
 
 // Setup Models
 require('./models/User');
+require('./models/Survey');
 
 // Setup Passport
 require('./services/passport');
