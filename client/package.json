@@ -15,6 +15,9 @@
     "/api/logout": {
       "target": "http://localhost:5000"
     },
+    "/api/surveys": {
+      "target": "http://localhost:5000"
+    },
     "/api/stripe": {
       "target": "http://localhost:5000"
     }
