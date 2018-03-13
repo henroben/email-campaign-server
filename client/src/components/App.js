@@ -7,8 +7,8 @@ import * as actions from '../actions';
 import Header from './Header';
 import Landing from './Landing';
 import Footer from './Footer';
+import Dashboard from './Dashboard';
 
-const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
 
 class App extends Component {
@@ -19,12 +19,14 @@ class App extends Component {
         return(
             <div>
                 <BrowserRouter>
-                    <div className="container">
+                    <div className="">
                         <Header />
-                        <Route exact path="/" component={Landing} />
-                        <Route exact path="/surveys" component={Dashboard} />
-                        <Route exact path="/surveys/new" component={SurveyNew} />
-                        <Footer />
+                        <div className="container" style={{minHeight: '200px'}}>
+                            <Route exact path="/" component={Landing} />
+                            <Route exact path="/surveys" component={Dashboard} />
+                            <Route exact path="/surveys/new" component={SurveyNew} />
+                        </div>
+                        <Footer style={{bottom:'0px'}} />
                     </div>
                 </BrowserRouter>
             </div>
