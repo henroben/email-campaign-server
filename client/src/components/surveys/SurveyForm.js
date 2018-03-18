@@ -5,17 +5,11 @@ import _ from 'lodash';
 
 import validateEmails from '../../utils/validateEmails';
 import SurveyField from './SurveyField';
-
-const FIELDS = [
-	{ label: 'Survey Title', name: 'title', noValueError: 'Please enter a Survey Title.' },
-	{ label: 'Subject Line', name: 'subject', noValueError: 'Please enter an Email Subject.' },
-	{ label: 'Email Body', name: 'body', noValueError: 'Please enter an Email Message' },
-	{ label: 'Recipients List', name: 'emails', noValueError: 'Please enter at least one Email Address.' }
-];
+import formFields from './formFields';
 
 class SurveyForm extends Component {
 	renderFields() {
-		return FIELDS.map(({ label, name }) => {
+		return formFields.map(({ label, name }) => {
 			return (
 				<Field
 					label={label}
@@ -30,7 +24,7 @@ class SurveyForm extends Component {
 	render() {
 		return (
 			<div style={{ marginTop: '15px', marginBottom: '70px' }}>
-				<form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+				<form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
 					{this.renderFields()}
 					<Link to={'/surveys'} className="aves-effect waves-light btn left">
 						<i className="material-icons left">cancel</i>
@@ -51,7 +45,7 @@ function validate(values) {
 
 	errors.emails = validateEmails(values.emails || '');
 
-	_.each(FIELDS, ({ name, noValueError }) => {
+	_.each(formFields, ({ name, noValueError }) => {
 		if(!values[name]) {
 			errors[name] = noValueError;
 		}
@@ -62,5 +56,6 @@ function validate(values) {
 
 export default reduxForm({
 	validate,
-	form: 'surveyForm'
+	form: 'surveyForm',
+	destroyOnUnmount: false
 })(SurveyForm);
