@@ -11,13 +11,19 @@ const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const Survey = mongoose.model('surveys'); // Use this way to get schema, otherwise will cause error with testing frameworks
 
 module.exports = app => {
+	app.get('/api/surveys', requireLogin, async (req, res) => {
+		const surveys = await Survey.find({ _user: req.user.id }).select({
+			recipients: false
+		}); // get all surveys created by user, exclude recipients sub doc
+		res.send(surveys);
+	});
+
 	app.get('/api/surveys/:surveyId/:choice', (req, res) => {
 		// Route to handle the redirect from clicking email link
 		res.send('Thank you for your feedback!');
 	});
 
 	app.post('/api/surveys/webhooks', (req, res) => {
-
 		const p = new Path('/api/surveys/:surveyId/:choice');
 		_.chain(req.body)
 			.map(({ email, url }) => {
@@ -33,12 +39,14 @@ module.exports = app => {
 			})
 			.compact()
 			.uniqBy('email', 'surveyId')
-			.each(({surveyId, email, choice}) => {
-				Survey.updateOne({
+			.each(({ surveyId, email, choice }) => {
+				Survey.updateOne(
+					{
 						_id: surveyId,
 						recipients: {
 							$elemMatch: {
-								email: email, responded: false
+								email: email,
+								responded: false
 							}
 						}
 					},
@@ -50,7 +58,8 @@ module.exports = app => {
 							'recipients.$.responded': true
 						}, // $ === $elemMatch from previous querry
 						lastResponded: new Date()
-					}).exec();
+					}
+				).exec();
 			})
 			.value();
 
